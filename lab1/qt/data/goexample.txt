@@ -1,0 +1,44 @@
+package main
+
+import (
+	"fmt"
+	"math/rand"
+)
+
+func rnd(a int) int {
+	return rand.Intn(a)
+}
+
+func main() {
+	secondsPerDay := 86400
+	distance := 62100000
+	company := ""
+	trip := ""
+
+	fmt.Println("Spaceline        Days Trip Type  Price")
+	fmt.Println("======================================")
+
+	for count := 0; count < 10; count++ {
+		switch rnd(3) {
+		case 0:
+			company = "Space Adventures"
+		case 1:
+			company = "SpaceX"
+		case 2:
+			company = "Virgin Galactic"
+		}
+
+		speed := rnd(15) + (2 * 8)                        // 16-30 km/s
+		duration := distance / speed / secondsPerDay // days
+		price := 20.0 + speed                        // millions
+
+		if rnd(2) == 1 {
+			trip = "Round-trip"
+			price = price * 2
+		} else {
+			trip = "One-way"
+		}
+
+		fmt.Printf("%-16v %4v %-10v $%4v\n", company, duration, trip, price)
+	}
+}
