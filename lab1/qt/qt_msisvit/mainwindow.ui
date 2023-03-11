@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1920</width>
+    <width>960</width>
     <height>1000</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>1920</width>
+    <width>960</width>
     <height>1000</height>
    </size>
   </property>
@@ -35,11 +35,18 @@
       <item>
        <layout class="QVBoxLayout" name="lyHeader">
         <item>
-         <layout class="QHBoxLayout" name="lyButton">
+         <layout class="QHBoxLayout" name="lyButtons">
           <item>
            <widget class="QPushButton" name="btnStart">
             <property name="text">
              <string>Начать анализ программного кода</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Отредактировать исходный код</string>
             </property>
            </widget>
           </item>
@@ -61,7 +68,7 @@
         <item>
          <widget class="QLabel" name="startLabel">
           <property name="text">
-           <string>Таблица расчёта базовых метрик Холстеда:</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Таблицы расчёта базовых метрик Холстеда:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -117,12 +124,12 @@
         <item>
          <widget class="QLabel" name="resTextLabel">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Итоговые метрики размера программы:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Расширенные метрики Холстеда:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="lyResText" stretch="2,7">
+         <layout class="QHBoxLayout" name="lyResText" stretch="1,1">
           <item>
            <widget class="QPlainTextEdit" name="resText">
             <property name="styleSheet">

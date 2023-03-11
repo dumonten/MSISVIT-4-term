@@ -2,8 +2,6 @@
 #include "ui_mainwindow.h"
 #include "lexer.h"
 
-#include <QMessageBox>
-#include <cmath>
 
 std::map<QString, int> operators, operands;
 
@@ -35,15 +33,27 @@ void MainWindow::initTables()
 
     ui->tableOperands->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableOperators->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    ui->tableOperands->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableOperands->setFocusPolicy(Qt::NoFocus);
+    ui->tableOperands->setSelectionMode(QAbstractItemView::NoSelection);
+    ui->tableOperators->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableOperators->setFocusPolicy(Qt::NoFocus);
+    ui->tableOperators->setSelectionMode(QAbstractItemView::NoSelection);
 }
 
-void MainWindow::on_btnStart_clicked()
+void MainWindow::clearAllFields()
 {
     ui->tableOperands->clear();
     ui->tableOperators->clear();
     ui->resText->clear();
     operators.clear();
     operands.clear();
+}
+
+void MainWindow::on_btnStart_clicked()
+{
+    clearAllFields();
 
     initTables();
 
@@ -120,6 +130,18 @@ void MainWindow::on_btnStart_clicked()
 
     ui->resText->setPlainText("Словарь программы = "   + QString::number(operatorsSize) + " + " + QString::number(operandsSize) + " = " + QString::number(operandsSize + operatorsSize)
                             + "\nДлина программы N = "  + QString::number(cntDictJ) + " + "      + QString::number(cntDictI)     + " = " + QString::number(cntDictJ + cntDictI)
-                            + "\nОбъем программы V = 61log2(" + QString::number(operandsSize + operatorsSize) + ") = " + QString::number(round(61 * log2(operandsSize + operatorsSize))));
+                            + "\nОбъем программы V = " + QString::number(cntDictJ + cntDictI) + "*log2(" + QString::number(operandsSize + operatorsSize) + ") = " + QString::number(round((cntDictJ + cntDictI) * log2(operandsSize + operatorsSize))));
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    fsrc.setModal(true);
+    fsrc.exec();
+    if (fsrc.isChanged())
+    {
+        clearAllFields();
+        initTables();
+    }
 }
 

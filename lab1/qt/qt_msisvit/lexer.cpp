@@ -29,9 +29,21 @@ char lexer::getData(std::map<QString, int> &operators, std::map<QString, int> &o
        }
        else if ((position = str.find("function call: ")) != -1)
        {
-           token = QString::fromStdString(str.substr(position + 15, str.length() - 16));
+           token = QString::fromStdString(str.substr(position + 15));
            operators[token]++;
            operands[token]++;
+       }
+       else if ((position = str.find("function defenition: func ")) != -1)
+       {
+           QString temp = QString::fromStdString(str.substr(position + 26));
+           for (auto i : temp)
+           {
+               if (i == "(")
+                   break;
+               token += i;
+           }
+           token += "(...)";
+           operators[token]++;
        }
     }
     file.close();

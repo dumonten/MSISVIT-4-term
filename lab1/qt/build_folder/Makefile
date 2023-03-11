@@ -52,12 +52,16 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../qt_msisvit/lexer.cpp \
+SOURCES       = ../qt_msisvit/dialogopenfsrc.cpp \
+		../qt_msisvit/lexer.cpp \
 		../qt_msisvit/main.cpp \
-		../qt_msisvit/mainwindow.cpp moc_mainwindow.cpp
-OBJECTS       = lexer.o \
+		../qt_msisvit/mainwindow.cpp moc_dialogopenfsrc.cpp \
+		moc_mainwindow.cpp
+OBJECTS       = dialogopenfsrc.o \
+		lexer.o \
 		main.o \
 		mainwindow.o \
+		moc_dialogopenfsrc.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -125,6 +129,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		../qt_msisvit/.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -147,8 +152,10 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/exceptions.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
-		../qt_msisvit/qt_msisvit.pro ../qt_msisvit/lexer.h \
-		../qt_msisvit/mainwindow.h ../qt_msisvit/lexer.cpp \
+		../qt_msisvit/qt_msisvit.pro ../qt_msisvit/dialogopenfsrc.h \
+		../qt_msisvit/lexer.h \
+		../qt_msisvit/mainwindow.h ../qt_msisvit/dialogopenfsrc.cpp \
+		../qt_msisvit/lexer.cpp \
 		../qt_msisvit/main.cpp \
 		../qt_msisvit/mainwindow.cpp
 QMAKE_TARGET  = qt_msisvit
@@ -159,7 +166,7 @@ TARGET        = qt_msisvit
 first: all
 ####### Build rules
 
-qt_msisvit: ui_mainwindow.h $(OBJECTS)  
+qt_msisvit: ui_dialogopenfsrc.h ui_mainwindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../qt_msisvit/qt_msisvit.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspecs/features/spec_pre.prf \
@@ -228,6 +235,7 @@ Makefile: ../qt_msisvit/qt_msisvit.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf 
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -318,6 +326,7 @@ Makefile: ../qt_msisvit/qt_msisvit.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf 
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
 /usr/lib/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/qt/mkspecs/features/exclusive_builds.prf:
 /usr/lib/qt/mkspecs/features/toolchain.prf:
 /usr/lib/qt/mkspecs/features/default_pre.prf:
@@ -356,9 +365,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../qt_msisvit/lexer.h ../qt_msisvit/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../qt_msisvit/lexer.cpp ../qt_msisvit/main.cpp ../qt_msisvit/mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../qt_msisvit/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../qt_msisvit/dialogopenfsrc.h ../qt_msisvit/lexer.h ../qt_msisvit/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../qt_msisvit/dialogopenfsrc.cpp ../qt_msisvit/lexer.cpp ../qt_msisvit/main.cpp ../qt_msisvit/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../qt_msisvit/dialogopenfsrc.ui ../qt_msisvit/mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -390,9 +399,14 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_dialogopenfsrc.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_dialogopenfsrc.cpp moc_mainwindow.cpp
+moc_dialogopenfsrc.cpp: ../qt_msisvit/dialogopenfsrc.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include /home/dumonten/Documents/GitHub/MSISVIT-4-term/lab1/qt/build_folder/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/dumonten/Documents/GitHub/MSISVIT-4-term/lab1/qt/qt_msisvit -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/12.2.1 -I/usr/include/c++/12.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/12.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.1/include-fixed -I/usr/include ../qt_msisvit/dialogopenfsrc.h -o moc_dialogopenfsrc.cpp
+
 moc_mainwindow.cpp: ../qt_msisvit/mainwindow.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -402,9 +416,13 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_dialogopenfsrc.h ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_dialogopenfsrc.h ui_mainwindow.h
+ui_dialogopenfsrc.h: ../qt_msisvit/dialogopenfsrc.ui \
+		/usr/bin/uic
+	/usr/bin/uic ../qt_msisvit/dialogopenfsrc.ui -o ui_dialogopenfsrc.h
+
 ui_mainwindow.h: ../qt_msisvit/mainwindow.ui \
 		/usr/bin/uic
 	/usr/bin/uic ../qt_msisvit/mainwindow.ui -o ui_mainwindow.h
@@ -419,6 +437,10 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
+dialogopenfsrc.o: ../qt_msisvit/dialogopenfsrc.cpp ../qt_msisvit/dialogopenfsrc.h \
+		ui_dialogopenfsrc.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialogopenfsrc.o ../qt_msisvit/dialogopenfsrc.cpp
+
 lexer.o: ../qt_msisvit/lexer.cpp ../qt_msisvit/lexer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o lexer.o ../qt_msisvit/lexer.cpp
 
@@ -427,8 +449,12 @@ main.o: ../qt_msisvit/main.cpp ../qt_msisvit/mainwindow.h
 
 mainwindow.o: ../qt_msisvit/mainwindow.cpp ../qt_msisvit/mainwindow.h \
 		ui_mainwindow.h \
+		../qt_msisvit/dialogopenfsrc.h \
 		../qt_msisvit/lexer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../qt_msisvit/mainwindow.cpp
+
+moc_dialogopenfsrc.o: moc_dialogopenfsrc.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dialogopenfsrc.o moc_dialogopenfsrc.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

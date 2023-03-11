@@ -1,114 +1,105 @@
+function defenition: func find_number(num int) bool
+operand: num
 operator: {}
-function call: rand.Intn(
-operand: a
-operator: {}
-operand: secondsPerDay
-operator: :=
-operand: 86400
-operand: distance
-operator: :=
-operand: 62100000
-operand: company
-operator: :=
-operand: ""
-operand: trip
-operator: :=
-operand: ""
-function call: fmt.Println(
-operand: "Spaceline        Days Trip Type  Price"
-function call: fmt.Println(
-operand: "======================================"
-operator: for statement
-operand: count
+operand: i
+operator: ,
+operand: cur
 operator: :=
 operand: 0
-operator: ;
-operand: count
+operator: ,
+operand: -1
+operator: var
+operand: result
+operator: =
+operand: false
+operator: for
+operand: i
 operator: <
-operand: 10
-operator: ;
-operand: count
-operator: ++
+operand: 1000
 operator: {}
-operator: switch statement
-function call: rnd(
+operand: cur
+operator: =
+function call: rand.Intn(...)
+operator: ()
+operand: num
+operator: /
+operand: 2
+operator: +
+operand: 1
+operator: *
+operand: num
+operator: if
+operand: cur
+operator: ==
+operand: num
+operator: {}
+function call: fmt.Println(...)
+operand: i
+operand: result
+operator: =
+operand: true
+operator: break
+operand: i
+operator: ++
+operator: return
+operand: result
+function defenition: func test(num int) 
+operand: num
+operator: {}
+operator: goto
+function call: fmt.Println(...)
+operand: "Never happens"
+operator: if
+function call: find_number(...)
+operand: num
+operator: {}
+operand: u
+operator: :=
+operator: []
+operand: 2
+operator: {}
+operand: 1
+operator: ,
+operand: 2
+function call: fmt.Println(...)
+operand: u
+operator: {}
+function call: fmt.Println(...)
+operand: "Ooops..."
+function defenition: func main() 
+operator: {}
+operator: for
+operand: i
+operator: :=
+operand: 0
+operator: ;
+operand: i
+operator: <
+operand: 100
+operator: ;
+operand: i
+operator: +=
+operand: 2
+operator: {}
+operator: var
+operand: u
+operator: =
+function call: rand.Intn(...)
 operand: 3
+function call: fmt.Println(...)
+operand: u
+operator: switch
+operand: u
 operator: {}
 operand: 0
 operator: :
-operand: company
-operator: =
-operand: "Space Adventures"
+function call: test(...)
+operand: 10
 operand: 1
 operator: :
-operand: company
-operator: =
-operand: "SpaceX"
+function call: test(...)
+operand: 100
 operand: 2
 operator: :
-operand: company
-operator: =
-operand: "Virgin Galactic"
-operand: speed
-operator: :=
-function call: rnd(
-operand: 15
-operator: +
-operator: ()
-operand: 2
-operator: *
-operand: 8
-operator: /
-operator: /
-operand: 16
-operator: -
-operand: 30
-operand: km
-operator: /
-operand: s
-operand: duration
-operator: :=
-operand: distance
-operator: /
-operand: speed
-operator: /
-operand: secondsPerDay
-operator: /
-operator: /
-operand: days
-operand: price
-operator: :=
-operand: 20.0
-operator: +
-operand: speed
-operator: /
-operator: /
-operand: millions
-operator: if statement
-function call: rnd(
-operand: 2
-operator: ==
-operand: 1
-operator: {}
-operand: trip
-operator: =
-operand: "Round-trip"
-operand: price
-operator: =
-operand: price
-operator: *
-operand: 2
-operator: {}
-operand: trip
-operator: =
-operand: "One-way"
-function call: fmt.Printf(
-operand: "%-16v %4v %-10v $%4v\n"
-operator: ,
-operand: company
-operator: ,
-operand: duration
-operator: ,
-operand: trip
-operator: ,
-operand: price
+function call: test(...)
+operand: 1000

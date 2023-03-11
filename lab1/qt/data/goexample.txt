@@ -5,40 +5,45 @@ import (
 	"math/rand"
 )
 
-func rnd(a int) int {
-	return rand.Intn(a)
+func find_number(num int) bool {
+	i, cur := 0, -1
+	var result bool = false
+	for i < 1000 {
+		cur = rand.Intn((num/2 + 1) * num)
+		if cur == num {
+			fmt.Println(i)
+			result = true
+			break
+		}
+		i++
+	}
+	return result
+}
+
+func test(num int) {
+	goto u
+	fmt.Println("Never happens")
+u:
+	if find_number(num) {
+		u := [2]int{1, 2}
+		fmt.Println(u)
+	} else {
+		fmt.Println("Ooops...")
+	}
 }
 
 func main() {
-	secondsPerDay := 86400
-	distance := 62100000
-	company := ""
-	trip := ""
-
-	fmt.Println("Spaceline        Days Trip Type  Price")
-	fmt.Println("======================================")
-
-	for count := 0; count < 10; count++ {
-		switch rnd(3) {
+	for i := 0; i < 100; i += 2 {
+		var u int = rand.Intn(3)
+		fmt.Println(u)
+		switch u {
 		case 0:
-			company = "Space Adventures"
+			test(10)
 		case 1:
-			company = "SpaceX"
+			test(100)
 		case 2:
-			company = "Virgin Galactic"
+			test(1000)
 		}
-
-		speed := rnd(15) + (2 * 8)                        // 16-30 km/s
-		duration := distance / speed / secondsPerDay // days
-		price := 20.0 + speed                        // millions
-
-		if rnd(2) == 1 {
-			trip = "Round-trip"
-			price = price * 2
-		} else {
-			trip = "One-way"
-		}
-
-		fmt.Printf("%-16v %4v %-10v $%4v\n", company, duration, trip, price)
 	}
 }
+ы

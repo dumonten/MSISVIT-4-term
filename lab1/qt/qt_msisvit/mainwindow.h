@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <algorithm>
+#include <QMessageBox>
+#include <cmath>
+#include "dialogopenfsrc.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,11 +19,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private:
+private: //Objects
+    DialogOpenFSrc fsrc;
+
+private: //Methods
     void initTables();
+
+    void clearAllFields();
 
 private slots:
     void on_btnStart_clicked();
+
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
